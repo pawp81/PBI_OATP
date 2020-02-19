@@ -17,18 +17,19 @@ For the installation of PowerShell modules: Exchange Online, Azure AD and Creden
 2.	(Optional) If you are planning to use multi-factor authentication to Exchange Online download and install “Exchange Online PowerShell using multi-factor authentication module”
     - a.	Minimum requirements for Exchange Online PowerShell module are described [here](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps).
     - b.	Please follow the steps from [this article](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps) to, download install the PowerShell module. 
+    ![EXO PS](/images/EXO_PS.png)
     - c. For testing the connectivity, you can run the following command in “Microsoft Exchange Online PowerShell Module”
 *Connect-EXOPSSession*
 
 Note: this will give a popup for authenticating to Exchange Online PowerShell.
 
 ### Installing PowerShell Packages
-4.	Install Azure AD PowerShell module. PowerShell module is needed to pull out Department information about the recipients from Azure AD.
+3.	Install Azure AD PowerShell module. PowerShell module is needed to pull out Department information about the recipients from Azure AD.
 *Install-Module -Name AzureAD* 
-5.	If you are using Windows authentication, please follow below steps
+4.	If you are using Windows authentication, please follow below steps
 *Install-Module -Name CredentialManager*
 Add Credentials
-6.	Create a generic credential (if not already done)
+5.	Create a generic credential (if not already done)
     - a.	Open Credential Manager
     - b.	Under Windows Credential click on add a generic credential and fill following
       - Internet or network address: OATP
