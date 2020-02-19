@@ -38,7 +38,8 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
       - UserName: Exchange Online admin account
       - Password: password of Exchange Online admin account.
 
-Note: In the PowerShell script, it is currently hardcoded as “OATP”. If you want to change the name. Please update the PowerShell script accordingly 
+Note: In the PowerShell script, it is currently hardcoded as “OATP”. If you want to change the name. Please update the PowerShell script accordingly.
+
 7.	If you are using Azure SQL server to store the data, create a generic credential for username and password as follows:
     ![CredMan_AzureSQLCreds](/images/CredMan_AzureSQLCreds.png)
     
@@ -62,12 +63,11 @@ SQL Server authentication or active directory authentication. More information i
     - e.	Once the connection is established, right click on the database in the object explorer and click on New Query
     ![NewQuery](/images/NewQuery.png)
     - f.	Create tables
-      - i Switch the connection to the database that will store reporting data.
-      
+      - Switch the connection to the database that will store reporting data.
  ![EOPATPReporting](/images/EOPATPReporting.png)
-      - ii.	Copy the content from CreateTable_script.sql and paste it in the SQL Query window
-      - iii.	Click on Execute or press F5
-      - iv.	This will create the required tables
+      - Copy the content from CreateTable_script.sql and paste it in the SQL Query window
+      - Click on Execute or press F5
+      - This will create the required tables
       
   ![Tables](/images/tables.png)
   
