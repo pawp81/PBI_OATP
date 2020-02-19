@@ -34,3 +34,4 @@ Add Credentials
       - Internet or network address: OATP
       - UserName: Exchange Online admin account
       - Password: password of Exchange Online admin account.
+Note: In the PowerShell script, it is currently hardcoded as “OATP”. If you want to change the name. Please update the PowerShell script accordingly 
