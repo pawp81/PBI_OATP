@@ -223,7 +223,7 @@ catch
 
         $filepath =  $csvDirPath + "PhishingReport_" + $reportFileDate + "_" + $fileIterator+".csv"
        
-        $result = Get-MailDetailAtpReport -StartDate $reportStartDate -EndDate $reportEndDate -PAGE $i -pagesize 5000
+        $result = Get-MailDetailAtpReport -StartDate $reportStartDate -EndDate $reportEndDate -Direction Inbound -PAGE $i -pagesize 5000
         
         if ($null -eq $result)
         {
