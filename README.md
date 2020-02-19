@@ -4,7 +4,7 @@ Use Power BI to generate reports on Exchange Online Protection and Office 365 Ad
 The solution has benefits over native, in-product reports. For example, it provides more flexibility in customization of the dashboards. Customers can modify the Power BI template according to their desires. Moreover, additional filters based on users’ characteristics are available such department, city and country.
 
 ## Architecture
-The solution consists of PowerShell script that is run periodically to collect phish and malware detection information and user details information. The script can save this data either to .csv files or to SQL database (Azure SQL or local SQL server).
+The solution consists of PowerShell script that can be run periodically to collect phish and malware detection information and user details information. The script can save this data either to .csv files or to SQL database (Azure SQL or local SQL server). The script leverages Exchange Online PowerShell cmdlet [Get-MailDetailTrafficReport](https://docs.microsoft.com/en-us/powershell/module/exchange/advanced-threat-protection/get-maildetailatpreport?view=exchange-ps)
 Solution includes also Power BI templates. Power BI template can pull out the data from data source into the Power BI model and populate pre-defined visuals with the data. Model then can be saved and published to the web to share it with broader audience.
 The data presented in the dashboards will include threats detected during inbound, outbound and intra-org mail flow. Threats detections included in the dashboard are:
 -	phish messages 
