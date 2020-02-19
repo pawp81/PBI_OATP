@@ -28,12 +28,21 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
 *Install-Module -Name AzureAD* 
 4.	If you are using Windows authentication, please follow below steps
 *Install-Module -Name CredentialManager*
-Add Credentials
+### Add Credentials
 5.	Create a generic credential (if not already done)
     - a.	Open Credential Manager
+    [CredMan](/images/CredMan.png)
     - b.	Under Windows Credential click on add a generic credential and fill following
+    [CredMan_OATP](/images/CredMan_OATP.png)
       - Internet or network address: OATP
       - UserName: Exchange Online admin account
       - Password: password of Exchange Online admin account.
 
 Note: In the PowerShell script, it is currently hardcoded as “OATP”. If you want to change the name. Please update the PowerShell script accordingly 
+7.	If you are using Azure SQL server to store the data, create a generic credential for username and password as follows
+    [CredMan_AzureSQLCreds](/images/CredMan_AzureSQLCreds.png)
+    -   Internet or network address: AzureSQLCreds
+    -	UserName: SQL admin account
+    -	Password: password of SQL admin account.
+
+Note: In the PowerShell, it is currently hardcoded as “AzureSQLCreds”. If you want to change the name. Please update the PowerShell script accordingly 
