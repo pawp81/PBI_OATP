@@ -39,12 +39,12 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
       - Password: password of Exchange Online admin account.
 
 Note: In the PowerShell script, it is currently hardcoded as “OATP”. If you want to change the name. Please update the PowerShell script accordingly 
-7.	If you are using Azure SQL server to store the data, create a generic credential for username and password as follows
+7.	If you are using Azure SQL server to store the data, create a generic credential for username and password as follows:
     ![CredMan_AzureSQLCreds](/images/CredMan_AzureSQLCreds.png)
     
-    - Internet or network address: AzureSQLCreds
-    - UserName: SQL admin account
-    - Password: password of SQL admin account.
+- Internet or network address: AzureSQLCreds
+- UserName: SQL admin account
+- Password: password of SQL admin account.
 
 Note: In the PowerShell, it is currently hardcoded as “AzureSQLCreds”. If you want to change the name. Please update the PowerShell script accordingly.
 
