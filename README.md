@@ -31,7 +31,9 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
 ### Add Credentials
 5.	Create a generic credential (if not already done)
     - a.	Open Credential Manager
-    ![CredMan](/images/CredMan.png)
+      
+      ![CredMan](/images/CredMan.png)
+      
     - b.	Under Windows Credential click on add a generic credential and fill following
     ![CredMan_OATP](/images/CredMan_OATP.png)
       - Internet or network address: OATP
@@ -64,7 +66,9 @@ SQL Server authentication or active directory authentication. More information i
     ![NewQuery](/images/NewQuery.png)
     - f.	Create tables
       - Switch the connection to the database that will store reporting data.
- ![EOPATPReporting](/images/EOPATPReporting.png)
+      
+      ![EOPATPReporting](/images/EOPATPReporting.png)
+      
       - Copy the content from CreateTable_script.sql and paste it in the SQL Query window
       - Click on Execute or press F5
       - This will create the required tables
