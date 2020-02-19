@@ -73,6 +73,6 @@ SQL Server authentication or active directory authentication. More information i
       - Click on Execute or press F5
       - This will create the required tables
       
-  ![Tables](/images/tables.png)
+      ![Tables](/images/tables.png)
   
-  ![Tables2](/images/tables2.png)
+      ![Tables2](/images/tables2.png)
