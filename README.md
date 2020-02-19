@@ -19,15 +19,15 @@ For the installation of PowerShell modules: Exchange Online, Azure AD and Creden
     - b.	Please follow the steps from [this article](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps) to, download install the PowerShell module. 
     ![EXO PS](/images/EXO_PS.png)
     - c. For testing the connectivity, you can run the following command in “Microsoft Exchange Online PowerShell Module”
-*Connect-EXOPSSession*
+    Connect-EXOPSSession
 
 Note: this will give a popup for authenticating to Exchange Online PowerShell.
 
 ### Installing PowerShell Packages
 3.	Install Azure AD PowerShell module. PowerShell module is needed to pull out Department information about the recipients from Azure AD.
-*Install-Module -Name AzureAD* 
+    Install-Module -Name AzureAD
 4.	If you are using Windows authentication, please follow below steps
-*Install-Module -Name CredentialManager*
+    Install-Module -Name CredentialManager
 ### Add Credentials
 5.	Create a generic credential (if not already done)
     - a.	Open Credential Manager
@@ -76,3 +76,21 @@ SQL Server authentication or active directory authentication. More information i
       ![Tables](/images/tables.png)
   
       ![Tables2](/images/tables2.png)
+
+    - g.	Creating Stored Procedures
+      - Copy the script from StoredProcedure_ATPCleanUp.sql and execute it. This will create stored procedure dbo.ATPCleanUp
+      - Copy the script from StoredProcedure_CleanUpUserDetails.sql and execute it. This will create stored procedure dbo.CleanUpUserDetails
+      
+      ![](/images/storedprocedures.png)
+      
+## Running the script:
+1.	Before running the script for the first time right click on ps1 file. Open properties and unblock the file.
+### CSV File Storage
+1.	Open PowerShell window and run the ATPReportingPS.ps1 PowerShell script with required parameters: 
+    .\ATPReportingPS.ps1 -csvDirPath "Provide folder path" -userFilePath "Provide CSV file name for user details "
+Parameters:
+    - csvDirPath (mandatory): folder path where .csv files with threat detection information should be saved to by the script: Example: “c:\EOPATPReporting\csv\”
+    - userFilePath (mandatory): path to the file where user details from Azure AD should be saved to Example: “c:\EOPATPReporting\userdetails.csv”
+It is highly recommended that userFilePath and csvDirPath point to different folders.
+    - MFA(optional): if you are authenticating using multi-factor authentication. Set value of this parameter to true. Example -MFA $true
+    - NoAAD(optional, not recommended for 1st run): skip Azure AD part of the script that collects information about the users from Azure AD.
