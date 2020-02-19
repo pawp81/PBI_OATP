@@ -64,10 +64,10 @@ SQL Server authentication or active directory authentication. More information i
       - i Switch the connection to the database that will store reporting data.
       
  ![EOPATPReporting](/images/EOPATPReporting.png)
- 
       - ii.	Copy the content from CreateTable_script.sql and paste it in the SQL Query window
       - iii.	Click on Execute or press F5
       - iv.	This will create the required tables
       
   ![Tables](/images/tables.png)
+  
   ![Tables2](/images/tables2.png)
