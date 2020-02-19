@@ -1,6 +1,8 @@
 # Power BI EOP/Office 365 ATP reporting
 Use Power BI to generate reports on Exchange Online Protection and Office 365 Advanced Threat Protection threats detection. This repository provides Power BI templates, PowerShell scripts and SQL scripts for EOP and Office 365 ATP threats reporting.
 
+The solution has benefits over native, in-product reports. For example, it provides more flexibility in customization of the dashboards. Customers can modify the Power BI template according to their desires. Moreover, additional filters based on users’ characteristics are available such department, city and country.
+
 ## Architecture
 The solution consists of PowerShell script that is run periodically to collect phish and malware detection information and user details information. The script can save this data either to .csv files or to SQL database (Azure SQL or local SQL server).
 Solution includes also Power BI templates. Power BI template can pull out the data from data source into the Power BI model and populate pre-defined visuals with the data. Model then can be saved and published to the web to share it with broader audience.
