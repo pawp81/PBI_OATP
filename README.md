@@ -31,18 +31,38 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
 ### Add Credentials
 5.	Create a generic credential (if not already done)
     - a.	Open Credential Manager
-    [CredMan](/images/CredMan.png)
+    ![CredMan](/images/CredMan.png)
     - b.	Under Windows Credential click on add a generic credential and fill following
-    [CredMan_OATP](/images/CredMan_OATP.png)
+    ![CredMan_OATP](/images/CredMan_OATP.png)
       - Internet or network address: OATP
       - UserName: Exchange Online admin account
       - Password: password of Exchange Online admin account.
 
 Note: In the PowerShell script, it is currently hardcoded as “OATP”. If you want to change the name. Please update the PowerShell script accordingly 
 7.	If you are using Azure SQL server to store the data, create a generic credential for username and password as follows
-    [CredMan_AzureSQLCreds](/images/CredMan_AzureSQLCreds.png)
+    ![CredMan_AzureSQLCreds](/images/CredMan_AzureSQLCreds.png)
     -   Internet or network address: AzureSQLCreds
     -	UserName: SQL admin account
     -	Password: password of SQL admin account.
 
-Note: In the PowerShell, it is currently hardcoded as “AzureSQLCreds”. If you want to change the name. Please update the PowerShell script accordingly 
+Note: In the PowerShell, it is currently hardcoded as “AzureSQLCreds”. If you want to change the name. Please update the PowerShell script accordingly.
+
+## Power BI Pre-requisites
+1.	Download and install Power BI Desktop from https://powerbi.microsoft.com/en-us/desktop/
+## Create SQL Tables and Stored Procedures (if you are using SQL Storage)
+1.	Create required tables and stored procedures
+    - a.	Connect to the SQL Server. This can be done via SQL Server Management Studio 18
+    ![MSSMS18](/images/MSSMS18.png)
+    - b.	Connect to the server
+    ![SQLServer](/images/SQLServer.png)
+    - c.	Provide SQL server name in “Server name” field to connect.
+    - d.	From SQL Admin get credential to connect to the server. If it is Azure SQL Server, authentication needs to be changed to 
+SQL Server authentication or active directory authentication. More information is available here: https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-ssms
+    - e.	Once the connection is established, right click on the database in the object explorer and click on New Query
+    ![NewQuery](/images/NewQuery.png)
+    - f.	Create tables
+            - i.	Switch the connection to the database that will store reporting data.
+    ![EOPATPReporting](/images/EOPATPReporting.png)
+            - ii.	Copy the content from CreateTable_script.sql and paste it in the SQL Query window
+            - iii.	Click on Execute or press F5
+            - iv.	This will create the required tables
