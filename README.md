@@ -14,6 +14,11 @@ The report doesn’t include spam and bulk email detections.
 ### General
 1.	Minimum permissions required in Exchange Online: Security Reader or View-Only Recipients or any custom role that has rights to execute Exchange Online PowerShell cmdlet Get-MailDetailATPReport. 
 For the installation of PowerShell modules: Exchange Online, Azure AD and Credential Manager local administrator rights are requiring. Local administrator rights are not required to run the script.
-2.	Download and install “Exchange Online PowerShell using multi-factor authentication module”
-a.	Minimum requirements for Exchange Online PowerShell module are described here.
-b.	Please follow the steps from this article to, download install the PowerShell module. 
+2.	If you are planning to use Download and install “Exchange Online PowerShell using multi-factor authentication module”
+a.	Minimum requirements for Exchange Online PowerShell module are described [here](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps).
+b.	Please follow the steps from [this article](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps) to, download install the PowerShell module. 
+3.	For testing the connectivity, you can run the following command in “Microsoft Exchange Online PowerShell Module”
+Connect-EXOPSSession
+Note: this will give a popup for authenticating to Exchange Online PowerShell.
+
+
