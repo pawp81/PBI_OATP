@@ -35,7 +35,7 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
       ![CredMan](/images/CredMan.png)
       
     - b.	Under Windows Credential click on add a generic credential and fill following
-    ![CredMan_OATP](/images/CredMan_OATP.png)
+    ![CredMan_OATP](/images/CredMan_OATP2.png)
       - Internet or network address: OATP
       - UserName: Exchange Online admin account
       - Password: password of Exchange Online admin account.
