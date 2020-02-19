@@ -137,7 +137,6 @@ else
     
 }
 
-
 Write-Host "Fetching ATP Details"
 
 try
