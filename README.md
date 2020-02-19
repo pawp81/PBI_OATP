@@ -61,8 +61,8 @@ SQL Server authentication or active directory authentication. More information i
     - e.	Once the connection is established, right click on the database in the object explorer and click on New Query
     ![NewQuery](/images/NewQuery.png)
     - f.	Create tables
-            - i.	Switch the connection to the database that will store reporting data.
+      - i Switch the connection to the database that will store reporting data.
     ![EOPATPReporting](/images/EOPATPReporting.png)
-            - ii.	Copy the content from CreateTable_script.sql and paste it in the SQL Query window
-            - iii.	Click on Execute or press F5
-            - iv.	This will create the required tables
+      - ii.	Copy the content from CreateTable_script.sql and paste it in the SQL Query window
+      - iii.	Click on Execute or press F5
+      - iv.	This will create the required tables
