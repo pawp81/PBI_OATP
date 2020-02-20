@@ -94,7 +94,7 @@ SQL Server authentication or active directory authentication. More information i
 3. Install Command Line Utilities 15 https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15
    
    - *if you observe error message during Command Line Utilities installation: Setup is missing an installation prerequisite: -Microsoft ODBC Driver 17 for SQL Server. To continue, install Microsoft ODBC Driver 17 for SQL Server and then run the setup operation again
-Exit the utils installation.* 
+Exit the utilities installation.* 
    - Install ODBC 13.1. Run the Command Line Utilities 15 installer again.
     
 
@@ -152,15 +152,21 @@ c.	Connect to the database accordingly:
 
 ## Recommendations
 For automated running of the script using Task Scheduler:
-1.	Don’t use MFA mode because it will not allow the script to run without admin interaction.
-2.	If you are using Azure SQL Server, use SQL based authentication.
-3.  For all Power BI templates makes sure that regional settings configured in the Power BI desktop app are matching those configured on the machine where PowerShell script is executed. Otherwise following error might occur when importing data to the model.
+1.  It is recommended to do first, test runs of the script using .csv file storage. It is easier to troubleshoot the problems when operating on .csv files. Only after data in Power BI model is correctly populated it is recommended to switch to SQL server storage, by deleting existing .csv files and re-running the script with SQL parameters.
+2.	Don’t use MFA mode because it will not allow the script to run without admin interaction. We are working to making the script compatible with Azure AD Service Accounts (client secret or client certificate authentication).
+3.	If you are using Azure SQL Server, use SQL based authentication.
+4.  For all Power BI templates makes sure that regional settings configured in the Power BI desktop app are matching those configured on the machine where PowerShell script is executed. Otherwise following error might occur when importing data to the model.
 
 ![](/images/PBI_DataFormat.png)
 
 Follow instructions from this article to change locale settings in Power BI desktop: 
 https://docs.microsoft.com/en-us/power-bi/supported-languages-countries-regions#choose-the-locale-for-importing-data-into-power-bi-desktop
 
+5. During import of the user details data to Power BI model you might get an error informing about duplicated values of Mail attribute similar to the one below:
+
+![](/images/email_duplicate.png)
+
+Please remove the duplicates in Azure AD, re-run the script and import the model to resolve this problem. Alternatively, just for testing, you can manually remove one the entries that has duplicated mail attribute from the .csv file.
 
 ## Open Bugs:
 1.	If you rerun the scripts on the same day, the csv files will be overwritten with latest data
