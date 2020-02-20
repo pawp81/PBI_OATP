@@ -109,6 +109,8 @@ Exit the utilities installation.*
     - IsAzureSQLServer: set to true if storage location is Azure SQL Server.
     - NoAAD (optional, not recommended for the 1st run) skip Azure AD part of the script that collects information about the users from Azure AD.
 
+3. During first run of the script or if no files are found in the folder specified by -csvDirPath, you will be prompted for the number of days threats data should be collected from. Maximum number of days is **10**.
+
 ### example for CSV storage and no MFA
 
 ```.\ATPReportingPS.ps1 -csvDirPath "c:\EOPATPReporting\csv\" -userFilePath "c:\EOPATPReporting\userAzureADdetails.csv"```
@@ -169,6 +171,6 @@ https://docs.microsoft.com/en-us/power-bi/supported-languages-countries-regions#
 Please remove the duplicates in Azure AD, re-run the script and import the model to resolve this problem. Alternatively, just for testing, you can manually remove one the entries that has duplicated mail attribute from the .csv file.
 
 ## Open Bugs:
-1.	If you rerun the scripts on the same day, the csv files will be overwritten with latest data
+1.	If you rerun the scripts on the same day, the csv files will be overwritten with latest data.
 We are working on the fix.
 
