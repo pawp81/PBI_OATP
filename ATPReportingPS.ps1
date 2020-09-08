@@ -1,12 +1,12 @@
 param (
-    [string]$csvDirPath, # Folder where the ATP csv files will be stored
-    [string]$userFilePath,  # Office 365 User details file name
+	[string]$csvDirPath, # Folder where the ATP csv files will be stored
+	[string]$userFilePath,  # Office 365 User details file name
 	[switch]$MFA, #is the account MFA enabled? if yes. Set to True. Should not be used together with $Cert
-    [switch]$InsertToSQL  ,# Set to true if data will be inserted into SQL Database
-    [switch]$IsAzureSQLServer, # Set to true if SQL Server is Azure SQL Server
-    [string]$ServerName, #ServerName
-    [string]$Database, #Database
-    [switch]$NoAAD, #Option to skip to download user details
+	[switch]$InsertToSQL  ,# Set to true if data will be inserted into SQL Database
+	[switch]$IsAzureSQLServer, # Set to true if SQL Server is Azure SQL Server
+	[string]$ServerName, #ServerName
+	[string]$Database, #Database
+	[switch]$NoAAD, #Option to skip to download user details
 	[string]$Cert, #Certificate thumbprint. When set username and password will not be used for authentication instead. Should not be used together with $MFA
 	[string]$Tenantname, #Tenant name. For example contoso.onmicrosoft.com
 	[string]$AppID # Azure AD app application ID
