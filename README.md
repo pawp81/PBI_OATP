@@ -18,7 +18,11 @@ The report doesn’t include spam and bulk email detections.
 ### General
 1.	Minimum permissions required in Exchange Online: Security Reader or View-Only Recipients or any custom role that has rights to execute Exchange Online PowerShell cmdlet Get-MailDetailATPReport. 
 For the installation of PowerShell modules: Exchange Online, Azure AD and Credential Manager local administrator rights are requiring. Local administrator rights are not required to run the script.
-2.	(Optional) If you are planning to use multi-factor authentication to Exchange Online download and install “Exchange Online PowerShell using multi-factor authentication module”
+2.  (Optional) If you want to avoid creation of service account in Azure AD and storing its username and password in Credential Manager you can use certificate based authentication to Azure AD. You will need to create web app in Azure AD, grant add it Graph API: Exchange.ManageAsApp
+You will also need to install preview version of Exchange Online v2 PowerShell module by running: 
+Install-module ExchangeOnlineManagement -RequiredVersion 2.0.3-Preview -AllowPrerelease.
+You can follow steps described in this article to configure unattended connection to Exchange Online PowerShell https://www.thecloudtechnologist.com/use-powershell-to-connect-to-exchange-online-unattended-in-a-scheduled-task/
+3.	(Optional) If you are instead planning to use multi-factor authentication to Exchange Online download and install “Exchange Online PowerShell using multi-factor authentication module”
     - a.	Minimum requirements for Exchange Online PowerShell module are described [here](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps).
     - b.	Please follow the steps from [this article](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps) to, download install the PowerShell module. 
     ![EXO PS](/images/EXO_PS.png)
@@ -33,7 +37,7 @@ Note: this will give a popup for authenticating to Exchange Online PowerShell.
 4.	If you are using Windows authentication, please follow below steps
 ```Install-Module -Name CredentialManager```
 ### Add Credentials
-5.	Create a generic credential (if not already done)
+5.	Create a generic credential (if not already done). You don't need to add OATP credentials if you will use certificate+AppID authentication instead.
     - a.	Open Credential Manager
       
       ![CredMan](/images/CredMan.png)
@@ -108,6 +112,10 @@ Exit the utilities installation.*
     - Database: SQL Database name
     - IsAzureSQLServer: set to true if storage location is Azure SQL Server.
     - NoAAD (optional, not recommended for the 1st run) skip Azure AD part of the script that collects information about the users from Azure AD.
+    - Cert (optional, shouldn't be used togheter with MFA parameter. This parameter specifies certificate thumbprint of the certificate used for the authentication to Azure AD.       Certificate should be stored in cert:\CurrentUser\My
+    - AppID (optional, required only when Cert parameter is used. Specifies Application ID of the app created for the purpose of authentication to Azure AD with certificate).
+    - tenantname (optional, required only when Cert parameter is used. Specifies tenant name of the tenant which report will be generated for)
+
 
 3. During first run of the script or if no files are found in the folder specified by -csvDirPath, you will be prompted for the number of days threats data should be collected from. Maximum number of days is **10**.
 
@@ -119,6 +127,10 @@ Exit the utilities installation.*
 
 ```.\ATPReportingPS.ps1 -csvDirPath "c:\EOPATPReporting\csv\" -userFilePath "c:\EOPATPReporting\userAzureADdetails.csv" -MFA $true```
 
+### example for CSV storage and with certificate authentication
+
+```.\ATPReportingPS.ps1 -csvDirPath "c:\EOPATPReporting\csv\" -userFilePath "c:\EOPATPReporting\userAzureADdetails.csv" -Cert "E3FB85877BEA92448CD5C19D567B95E604900E01" -AppID "68e96ab7-30bb-4b16-a667-e66cf83b3921" -Tenantname contoso.onmicrosoft.com ```
+
 ### example for Azure SQL storage and no MFA
 
 ```.\ATPReportingPS.ps1 -csvDirPath "c:\EOPATPReporting\csv\" -userFilePath "c:\EOPATPReporting\userAzureADdetails.csv" -ServerName "xxxxx.database.windows.net" -Database "EOPATPReporting" -InsertToSQL $true -IsAzureSQLServer $true```
@@ -128,6 +140,10 @@ Exit the utilities installation.*
 ### example for SQL storage and no MFA
 
 ```.\ATPReportingPS.ps1 -csvDirPath "c:\EOPATPReporting\csv\" -userFilePath "c:\EOPATPReporting\userAzureADdetails.csv" -ServerName "SQLSrv01.ad.local" -Database "EOPATPReporting" -InsertToSQL $true```
+
+### example for SQL storage and with certificate authentication
+
+```.\ATPReportingPS.ps1 -csvDirPath "c:\EOPATPReporting\csv\" -userFilePath "c:\EOPATPReporting\userAzureADdetails.csv" -ServerName "SQLSrv01.ad.local" -Database "EOPATPReporting" -InsertToSQL $true -Cert "E3FB85877BEA92448CD5C19D567B95E604900E01" -AppID "68e96ab7-30bb-4b16-a667-e66cf83b3921" -Tenantname contoso.onmicrosoft.com ```
 
 ## Reporting
 1.	For data storage in csv files, use **PBI - EOP ATP Reporting.pbit** Power BI template file.
