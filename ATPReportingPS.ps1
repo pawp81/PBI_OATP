@@ -1,12 +1,15 @@
-﻿param (
+param (
     [string]$csvDirPath, # Folder where the ATP csv files will be stored
     [string]$userFilePath,  # Office 365 User details file name
-	[switch]$MFA, #is the account MFA enabled? if yes. Set to True
+	[switch]$MFA, #is the account MFA enabled? if yes. Set to True. Should not be used together with $Cert
     [switch]$InsertToSQL  ,# Set to true if data will be inserted into SQL Database
     [switch]$IsAzureSQLServer, # Set to true if SQL Server is Azure SQL Server
     [string]$ServerName, #ServerName
     [string]$Database, #Database
-    [switch]$NoAAD #Option to skip to download user details
+    [switch]$NoAAD, #Option to skip to download user details
+	[string]$Cert, #Certificate thumbprint. When set username and password will not be used for authentication instead. Should not be used together with $MFA
+	[string]$Tenantname, #Tenant name. For example contoso.onmicrosoft.com
+	[string]$AppID # Azure AD app application ID
     )
  
 Write-Host "Following are the details provided:"
@@ -18,7 +21,9 @@ Write-Host " Database              :"   $Database
 Write-Host " InsertToSQL           :"   $InsertToSQL  
 Write-Host " IsAzureSQLServer      :"   $IsAzureSQLServer 
 Write-Host " NoAAD                 :" $NoAAD
-
+Write-Host " Cert                :" $Cert
+Write-Host " Tenantname              :" $tenantname
+Write-Host " AppID                :" $AppID
 try        
 {          
 
@@ -41,7 +46,7 @@ New-Item -ItemType Directory -Force -Path $logDirectory
         Install-Module -Name AzureAD
         Write-Host "Installed AzureAD"
     }
-
+	
 	if($MFA)
     {
      Write-Host "Authorzing via MFA"
@@ -81,24 +86,44 @@ New-Item -ItemType Directory -Force -Path $logDirectory
     }
     else
     {
-        Write-Host "Initialzing PSSession"
-        $ExchangeURI = "https://ps.protection.outlook.com/powershell-liveid/"
-	    $cloudCreds  = Get-StoredCredential -Target OATP -ErrorAction Stop
-        $Session= New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri $ExchangeURI -Credential $cloudCreds -Authentication Basic -AllowRedirection -ErrorAction Stop  
-        Import-PSSession -Session $Session -ErrorAction Stop -AllowClobber -DisableNameChecking
-        if($NoAAD -eq $null -or $NoAAD -eq $false)
-        {
-            Connect-AzureAD -Credential $cloudCreds
-            $result = Get-AzureADUser -All $true | Select-Object ObjectType,AccountEnabled,AgeGroup,City,CompanyName,Country,CreationType,Department,DirSyncEnabled,DisplayName,GivenName,IsCompromised,ImmutableId,JobTitle,LastDirSyncTime,LegalAgeGroupClassification,Mail,MailNickName,OnPremisesSecurityIdentifier,State,StreetAddress,Surname,UsageLocation,UserPrincipalName,UserState,UserStateChangedOn,UserType
-            $result | Export-Csv $userFilePath -Delimiter `t
-            Write-Host "UserDetails Import Successful"
-        }
-        else
-        {
-            Write-Host "Skipping user import based on user input NoAAD:"  $NoAAD 
-        }
+		if($Cert)
+		{
+			write-host "Authentication with certificate to Exchange Online and Azure AD"
+			Connect-ExchangeOnline -CertificateThumbprint $cert -AppId $AppID -ShowBanner:$false -Organization $tenantname
+			
+			if($NoAAD -eq $null -or $NoAAD -eq $false)
+			{
+				Connect-AzureAD -CertificateThumbprint $cert -ApplicationId $AppID -TenantId wdgcxp.onmicrosoft.com
+				$result = Get-AzureADUser -All $true | Select-Object ObjectType,AccountEnabled,AgeGroup,City,CompanyName,Country,CreationType,Department,DirSyncEnabled,DisplayName,GivenName,IsCompromised,ImmutableId,JobTitle,LastDirSyncTime,LegalAgeGroupClassification,Mail,MailNickName,OnPremisesSecurityIdentifier,State,StreetAddress,Surname,UsageLocation,UserPrincipalName,UserState,UserStateChangedOn,UserType
+				$result | Export-Csv $userFilePath -Delimiter `t
+				Write-Host "UserDetails Import Successful"
+			}
+			else
+			{
+				Write-Host "Skipping user import based on user input NoAAD:"  $NoAAD 
+			}
+		
+		}
+		else
+		{
+			Write-Host "Initialzing PSSession"
+			$ExchangeURI = "https://ps.protection.outlook.com/powershell-liveid/"
+			$cloudCreds  = Get-StoredCredential -Target OATP -ErrorAction Stop
+			$Session= New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri $ExchangeURI -Credential $cloudCreds -Authentication Basic -AllowRedirection -ErrorAction Stop  
+			Import-PSSession -Session $Session -ErrorAction Stop -AllowClobber -DisableNameChecking
+			if($NoAAD -eq $null -or $NoAAD -eq $false)
+			{
+				Connect-AzureAD -Credential $cloudCreds
+				$result = Get-AzureADUser -All $true | Select-Object ObjectType,AccountEnabled,AgeGroup,City,CompanyName,Country,CreationType,Department,DirSyncEnabled,DisplayName,GivenName,IsCompromised,ImmutableId,JobTitle,LastDirSyncTime,LegalAgeGroupClassification,Mail,MailNickName,OnPremisesSecurityIdentifier,State,StreetAddress,Surname,UsageLocation,UserPrincipalName,UserState,UserStateChangedOn,UserType
+				$result | Export-Csv $userFilePath -Delimiter `t
+				Write-Host "UserDetails Import Successful"
+			}
+			else
+			{
+				Write-Host "Skipping user import based on user input NoAAD:"  $NoAAD 
+			}
+		}
 	}
-
 if($InsertToSQL)
 {
     if(($NoAAD -eq $null -or $NoAAD -eq $false))
@@ -280,6 +305,3 @@ else
     Remove-PSSession $Session
     Exit-PSSession
 }
-
-
-
