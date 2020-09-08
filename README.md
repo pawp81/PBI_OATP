@@ -20,7 +20,7 @@ The report doesn’t include spam and bulk email detections.
 For the installation of PowerShell modules: Exchange Online, Azure AD and Credential Manager local administrator rights are requiring. Local administrator rights are not required to run the script.
 2.  (Optional) If you want to avoid creation of service account in Azure AD and storing its username and password in Credential Manager you can use certificate based authentication to Azure AD. You will need to create web app in Azure AD, grant add it Graph API: Exchange.ManageAsApp
 You will also need to install preview version of Exchange Online v2 PowerShell module by running: 
-Install-module ExchangeOnlineManagement -RequiredVersion 2.0.3-Preview -AllowPrerelease.
+```Install-module ExchangeOnlineManagement -RequiredVersion 2.0.3-Preview -AllowPrerelease```
 You can follow steps described in this article to configure unattended connection to Exchange Online PowerShell https://www.thecloudtechnologist.com/use-powershell-to-connect-to-exchange-online-unattended-in-a-scheduled-task/
 3.	(Optional) If you are instead planning to use multi-factor authentication to Exchange Online download and install “Exchange Online PowerShell using multi-factor authentication module”
     - a.	Minimum requirements for Exchange Online PowerShell module are described [here](https://docs.microsoft.com/en-us/powershell/exchange/exchange-online/connect-to-exchange-online-powershell/mfa-connect-to-exchange-online-powershell?view=exchange-ps).
