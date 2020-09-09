@@ -93,7 +93,7 @@ New-Item -ItemType Directory -Force -Path $logDirectory
 			
 			if($NoAAD -eq $null -or $NoAAD -eq $false)
 			{
-				Connect-AzureAD -CertificateThumbprint $cert -ApplicationId $AppID -TenantId wdgcxp.onmicrosoft.com
+				Connect-AzureAD -CertificateThumbprint $cert -ApplicationId $AppID -TenantId $tenantname
 				$result = Get-AzureADUser -All $true | Select-Object ObjectType,AccountEnabled,AgeGroup,City,CompanyName,Country,CreationType,Department,DirSyncEnabled,DisplayName,GivenName,IsCompromised,ImmutableId,JobTitle,LastDirSyncTime,LegalAgeGroupClassification,Mail,MailNickName,OnPremisesSecurityIdentifier,State,StreetAddress,Surname,UsageLocation,UserPrincipalName,UserState,UserStateChangedOn,UserType
 				$result | Export-Csv $userFilePath -Delimiter `t
 				Write-Host "UserDetails Import Successful"
